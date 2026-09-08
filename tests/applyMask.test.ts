@@ -48,8 +48,7 @@ describe('applyMask', () => {
     test('should parse and apply wildcard mask', () => {
       const result = applyMask(sampleData, '*,-password');
       
-      const expected = { ...sampleData };
-      delete expected.password;
+      const { password: _password, ...expected } = sampleData;
       expect(result).toEqual(expected);
     });
 

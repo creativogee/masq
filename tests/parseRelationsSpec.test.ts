@@ -261,18 +261,19 @@ describe('parseRelationsSpec', () => {
       const result = parseRelationsSpec('model,make', 'car');
 
       expect(result).toHaveLength(2);
-      expect(result[0]).toHaveProperty('path');
-      expect(result[0]).toHaveProperty('alias');
-      expect(typeof result[0].path).toBe('string');
-      expect(typeof result[0].alias).toBe('string');
+      const [first] = result;
+      expect(first).toHaveProperty('path');
+      expect(first).toHaveProperty('alias');
+      expect(typeof first?.path).toBe('string');
+      expect(typeof first?.alias).toBe('string');
     });
 
     test('should satisfy RelationJoin interface', () => {
       const result = parseRelationsSpec('model(make)', 'car');
 
-      const join: RelationJoin = result[0];
-      expect(join.path).toBe('car.model');
-      expect(join.alias).toBe('model');
+      const join: RelationJoin | undefined = result[0];
+      expect(join?.path).toBe('car.model');
+      expect(join?.alias).toBe('model');
     });
   });
 });
